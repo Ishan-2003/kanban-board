@@ -21,9 +21,7 @@ const Button = ({manageData}) => {
       setishidden(true);
     }
   }
-  const handleGrouping = async (event) => {
-    setGrouped(event.target.value)
-  }
+ 
   const compositeKeyTouser = {};
   const priorityTocompositekey = {};
   const groupedUsers = {};
@@ -40,7 +38,21 @@ const Button = ({manageData}) => {
 
   const resarr = {};
   var userMetaData = {}; 
-  var changed = false;
+  // var changed = false;
+  // const [reload, setreload] = useState(false);
+  useEffect(() => {
+    const data1 = JSON.parse(window.localStorage.getItem('GROUPING'));
+    const data2 = JSON.parse(window.localStorage.getItem('ORDERING'));
+ 
+      setGrouped(data1);
+      setOrdered(data2);
+
+
+    return () => {
+      
+    };
+  }, []);
+
   useEffect(() => {
     const formattingData = () => {
     
@@ -136,17 +148,35 @@ const Button = ({manageData}) => {
     }
 
     formattingData();
+    window.localStorage.setItem('GROUPING',JSON.stringify(grouped));
+    window.localStorage.setItem('ORDERING',JSON.stringify(ordered));
+    manageData({resarr,userMetaData,APIdata,grouped})
     // console.log(mapping1, sorted_mapping)
-    changed = true;
     return () => {
-      changed = false;
+      // changed = false;
     };
-  }, [grouped, ordered]);
+  }, [grouped, ordered,manageData]);
 
+
+ 
+
+
+
+  // if(reload) manageData({resarr,userMetaData,APIdata,grouped})
+ 
 
   const handleOrdering = (event) => {
     setOrdered(event.target.value);
   }
+
+  const handleGrouping = async (event) => {
+    setGrouped(event.target.value)
+  }
+
+ 
+
+ 
+ 
 
   // console.log(data[0]?.tickets.forEach(element => {
   //   console.log(element)
@@ -161,9 +191,13 @@ const Button = ({manageData}) => {
     };
   }, []);
 
+  
+ 
+  
+  
   return (
     <div className='header-part'>
-      <div className='btn' onClick={() => { if (ishidden) handleCollapse(); }}>
+    <div className='btn' onClick={() => { if (ishidden) handleCollapse(); }}>
         <img src={adjust} alt='' className='adjust-icon' />
         <h4>Display</h4>
         <img src={carret} alt='' />
@@ -187,7 +221,8 @@ const Button = ({manageData}) => {
           </div>
         </div>
       </div>
-      <div className='display-div' onMouseEnter={() => { handleCollapse1(); if(!ishidden&&changed) {manageData({resarr,userMetaData,APIdata,grouped})}}}></div>
+      
+      <div className='display-div' onMouseEnter={() => { handleCollapse1()}}></div>
     </div>
   )
 }

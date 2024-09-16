@@ -74,11 +74,7 @@ const Header = ({ data }) => {
                                                 <h5>{data?.id}</h5>
                                                 <div className='card-title'>
                                                     {
-                                                        (groupingBases !== 'Status') && <div className='avatar'>
-                                                        <img src={
-                                                            imagesPriority[data?.priority]
-                                                        } alt='Avatar' />
-                                                    </div>
+                                                        (groupingBases !== 'Status') && <img src={imagesStatus[data?.status]} alt='logo' />
                                                     }
                                                     <div>
                                                         <p>{data?.title}</p>

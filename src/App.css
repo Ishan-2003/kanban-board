@@ -135,7 +135,7 @@
 }
 
 .card-title {
-  div>p{
+  p{
 
     text-overflow: ellipsis;
     /* white-space: nowrap; */
@@ -154,11 +154,12 @@
     place-content: center;
   }
   overflow: hidden;
-    font-size: 1.1rem;
+  font-size: 1.1rem;
   grid-template-rows: 100%;
   width: 15rem;
   height:4rem;
   display: grid;
+  place-items: center;
   grid-template-columns: repeat(2,auto);
   gap: 1rem;
 }
